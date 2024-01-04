@@ -4,7 +4,7 @@ export default {
   meta: {
     icon: "informationLine",
     title: "异常页面",
-    // showLink: false,
+    showLink: false,
     rank: 9
   },
   children: [
@@ -12,6 +12,7 @@ export default {
       path: "/error/403",
       name: "403",
       component: () => import("@/views/error/403.vue"),
+      showLink: false,
       meta: {
         title: "403"
       }

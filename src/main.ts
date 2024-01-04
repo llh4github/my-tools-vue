@@ -21,9 +21,11 @@ import "element-plus/dist/index.css";
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
-
+import "highlight.js/styles/idea.css"; //这里有多个样式，自己可以根据需要切换
+import "highlight.js/lib/common"; // 依赖包
+import hljsVuePlugin from "@highlightjs/vue-plugin"; // 支持vue3的组件
 const app = createApp(App);
-
+app.use(hljsVuePlugin);
 // 自定义指令
 import * as directives from "@/directives";
 Object.keys(directives).forEach(key => {
