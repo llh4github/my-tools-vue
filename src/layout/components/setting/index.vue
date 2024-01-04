@@ -390,6 +390,7 @@ onBeforeMount(() => {
       type="danger"
       style="width: 90%; margin: 24px 15px"
       @click="onReset"
+      v-if="false"
     >
       <IconifyIconOffline
         :icon="Logout"

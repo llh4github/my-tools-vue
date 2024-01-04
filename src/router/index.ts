@@ -100,6 +100,7 @@ const whiteList = ["/login"];
 
 const { VITE_HIDE_HOME } = import.meta.env;
 
+import { useUserStoreHook } from "@/store/modules/user";
 router.beforeEach((to: ToRouteType, _from, next) => {
   if (to.meta?.keepAlive) {
     handleAliveRoute(to, "add");
@@ -181,20 +182,28 @@ router.beforeEach((to: ToRouteType, _from, next) => {
       toCorrectRoute();
     }
   } else {
-    if (to.path !== "/login") {
-      if (whiteList.indexOf(to.path) !== -1) {
-        next();
-      } else {
-        next({ path: "/login" });
-      }
-    } else {
-      next();
-    }
+    login();
+    next();
   }
 });
 
 router.afterEach(() => {
   NProgress.done();
 });
-
+function login() {
+  useUserStoreHook()
+    .loginByUsername({
+      username: "admin",
+      password: "admin123"
+    })
+    .then(res => {
+      if (res.success) {
+        // 获取后端路由
+        initRouter().then(() => {
+          router.push(getTopMenu(true).path);
+          // message("登录成功", { type: "success" });
+        });
+      }
+    });
+}
 export default router;
